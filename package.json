@@ -1,0 +1,38 @@
+{
+  "name": "major-versions",
+  "version": "1.0.0",
+  "description": "Get all the major versions within a semver range",
+  "main": "./src",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "range-function": "~0.1.1",
+    "semver": "~4.3.3",
+    "semver-truncate": "~1.0.0"
+  },
+  "devDependencies": {
+    "babel": "~5.2.0",
+    "babel-tape-runner": "~1.1.0",
+    "tape": "~4.0.0"
+  },
+  "scripts": {
+    "test": "babel-tape-runner test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bendrucker/major-versions.git"
+  },
+  "keywords": [
+    "semver",
+    "major",
+    "range",
+    "versions"
+  ],
+  "author": "Ben Drucker <bvdrucker@gmail.com> (http://www.bendrucker.me/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bendrucker/major-versions/issues"
+  },
+  "homepage": "https://github.com/bendrucker/major-versions#readme"
+}
