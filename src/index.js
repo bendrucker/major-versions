@@ -22,5 +22,5 @@ export default function majors (range) {
     })
     .map(semver => semver.version)
 
-  return numberRange(lower, upper)
+  return numberRange(lower, upper).map(n => n.toString())
 }
