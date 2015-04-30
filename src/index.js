@@ -11,9 +11,16 @@ export default function majors (range) {
       comparators.push.apply(comparators, set)
       return comparators
     }, [])
-    .map(comparator => comparator.semver.version)
-    .map(version => truncate(version, 'major'))
-    .map(version => parseInt(version))
+    .map((comparator) => {
+      return {
+        version: parseInt(comparator.semver.version),
+        operator: comparator.semver.operator
+      }
+    })
+    .sort((a, b) => {
+      return a.version < b.version ? -1 : 1
+    })
+    .map(semver => semver.version)
 
   return numberRange(lower, upper)
 }
