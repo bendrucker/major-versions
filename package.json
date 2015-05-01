@@ -19,7 +19,8 @@
     "tape": "~4.0.0"
   },
   "scripts": {
-    "test": "babel-tape-runner test/*.js"
+    "test": "babel-tape-runner test/*.js",
+    "build": "babel ./src -d ./lib --optional runtime"
   },
   "repository": {
     "type": "git",
