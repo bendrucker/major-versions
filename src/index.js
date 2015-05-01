@@ -50,12 +50,18 @@ function conflicts (semvers, semver) {
 
 
 function upperBound (semvers, range, maximum) {
-  if (last(semvers).operator === operators.gt) {
+  const final = last(semvers)
+  if (final.operator === operators.gt) {
+    const err = `Cannot determine major versions: "${range}" is unbounded and `
     if (maximum == null) {
-      throw new Error(`Cannot determine major versions: "${range}" is unbounded and no maximum was provided`)
+      throw new Error(err + 'no maximum was provided')
+    }
+    maximum = parseInt(maximum)
+    if (maximum < final.version) {
+      throw new Error(err + 'the maximum is not in range')
     }
     semvers.push({
-      version: parseInt(maximum) + 1,
+      version: maximum + 1,
       operator: operators.lt
     })
   }
