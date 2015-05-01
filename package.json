@@ -10,6 +10,7 @@
     "array-last": "~1.0.2",
     "range-function": "~0.1.1",
     "semver": "~4.3.3",
+    "sort-on": "~1.1.0",
     "unique-concat": "~0.2.2"
   },
   "devDependencies": {
