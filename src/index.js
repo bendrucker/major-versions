@@ -7,6 +7,11 @@ import last from 'array-last'
 import uniqueConcat from 'unique-concat'
 import sortOn from 'sort-on'
 
+const operators = {
+  gt: '>=',
+  lt: '<'
+}
+
 export default function majors (range, maximum) {
   return new Range(range).set
     .map((comparators) => {
@@ -29,22 +34,22 @@ export default function majors (range, maximum) {
 }
 
 function upperBound (semvers, range, maximum) {
-  if (last(semvers).operator === '>=') {
+  if (last(semvers).operator === operators.gt) {
     if (maximum == null) {
       throw new Error(`Cannot determine major versions: "${range}" is unbounded and no maximum was provided`)
     }
     semvers.push({
       version: parseInt(maximum) + 1,
-      operator: '<'
+      operator: operators.lt
     })
   }
 }
 
 function lowerBound (semvers) {
-  if (semvers[0].operator === '<') {
+  if (semvers[0].operator === operators.lt) {
     semvers.push({
       version: 0,
-      operator: '>='
+      operator: operators.gt
     })
   }
 }
