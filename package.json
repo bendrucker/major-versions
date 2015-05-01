@@ -1,6 +1,6 @@
 {
   "name": "major-versions",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Get all the major versions within a semver range",
   "main": "./src",
   "directories": {
