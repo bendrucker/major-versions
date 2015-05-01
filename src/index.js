@@ -21,8 +21,11 @@ export default function majors (range, maximum) {
           operator: comparator.operator
         }
       }), 'version')
+      .reduce(conflicts, [])
+
       upperBound(semvers, range, maximum)
       lowerBound(semvers)
+
       const [lower, upper] = semvers.map(semver => semver.version)
       return numberRange(lower, upper)
     })
@@ -32,6 +35,19 @@ export default function majors (range, maximum) {
     .sort()
     .map(n => n.toString())
 }
+
+function conflicts (semvers, semver) {
+  const previous = last(semvers)
+  if (previous && previous.operator === semver.operator) {
+    if (semver.operator === operators.gt) {
+      semvers.pop()
+      semvers.push(semver)
+    }
+    return semvers
+  }
+  return semvers.concat(semver)
+}
+
 
 function upperBound (semvers, range, maximum) {
   if (last(semvers).operator === operators.gt) {

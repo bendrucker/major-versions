@@ -17,6 +17,9 @@ test((t) => {
 
   t.deepEqual(majors('2 || > 5 < 8'), ['2', '6', '7'])
 
+  t.deepEqual(majors('> 2 < 7 > 4'), ['5', '6'])
+  t.deepEqual(majors('> 2 < 6 < 7'), ['3', '4', '5'])
+
   t.end()
 })
 
