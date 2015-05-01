@@ -6,6 +6,7 @@ import majors from '../'
 test((t) => {
   t.deepEqual(majors('2'), ['2'])
   t.deepEqual(majors('> 2 < 5'), ['3', '4'])
+  t.deepEqual(majors('> 2 <= 4'), ['3', '4'])
   t.deepEqual(majors('< 5 > 2'), ['3', '4'])
   t.deepEqual(majors('>= 2.3.0 < 5'), ['2', '3', '4'])
 
@@ -19,6 +20,7 @@ test((t) => {
 
   t.deepEqual(majors('> 2 < 7 > 4'), ['5', '6'])
   t.deepEqual(majors('> 2 < 6 < 7'), ['3', '4', '5'])
+  t.deepEqual(majors('> 2 <= 6 < 7'), ['3', '4', '5', '6'])
 
   t.end()
 })
