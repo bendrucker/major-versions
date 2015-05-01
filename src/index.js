@@ -23,6 +23,8 @@ export default function majors (range, maximum) {
       }), 'version')
       .reduce(conflicts, [])
 
+      if (!resolves(semvers)) return []
+
       upperBound(semvers, range, maximum)
       lowerBound(semvers)
 
@@ -48,6 +50,17 @@ function conflicts (semvers, semver) {
   return semvers.concat(semver)
 }
 
+function resolves (semvers) {
+  for (var i = 0; i < semvers.length; i++) {
+    const [current, previous] = [i, i - 1].map(i => semvers[i])
+    if (previous && previous.operator === operators.lt) {
+      if (current.operator === operators.gt) {
+        return false
+      }
+    }
+  }
+  return true
+}
 
 function upperBound (semvers, range, maximum) {
   const final = last(semvers)
