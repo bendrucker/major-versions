@@ -13,6 +13,10 @@ test((t) => {
   t.throws(majors.bind(null, '> 2'), /unbounded/)
   t.deepEqual(majors('>= 2', '4.3.2'), ['2', '3', '4'], 'unbounded with maximum');
 
+  t.deepEqual(majors('<= 2'), ['0', '1', '2'], 'lower bound is zero');
+
+  t.deepEqual(majors('2 || > 5 < 8'), ['2', '6', '7'])
+
   t.end()
 })
 
