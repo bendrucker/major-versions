@@ -2,7 +2,7 @@
   "name": "major-versions",
   "version": "1.0.2",
   "description": "Get all the major versions within a semver range",
-  "main": "./src",
+  "main": "./lib",
   "directories": {
     "test": "test"
   },
