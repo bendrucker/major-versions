@@ -20,11 +20,12 @@
     "babelify": "~6.0.2",
     "browserify": "^10.1.3",
     "coverify": "~1.1.0",
+    "publicist": "^4.0.4",
+    "publicist-es5": "^1.0.0",
     "tape": "~4.0.0"
   },
   "scripts": {
-    "test": "browserify -t babelify -t coverify test/*.js --bare | node | coverify",
-    "build": "babel ./src -d ./lib --optional runtime"
+    "test": "browserify -t babelify -t coverify test/*.js --bare | node | coverify"
   },
   "repository": {
     "type": "git",
@@ -41,5 +42,13 @@
   "bugs": {
     "url": "https://github.com/bendrucker/major-versions/issues"
   },
-  "homepage": "https://github.com/bendrucker/major-versions#readme"
+  "homepage": "https://github.com/bendrucker/major-versions#readme",
+  "publicist": {
+    "builds": {
+      "es5": {
+        "src": "./src/*.js",
+        "dest": "./lib"
+      }
+    }
+  }
 }
