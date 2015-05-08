@@ -9,6 +9,7 @@ test((t) => {
   t.deepEqual(majors('> 2 <= 4'), ['3', '4'])
   t.deepEqual(majors('< 5 > 2'), ['3', '4'])
   t.deepEqual(majors('>= 2.3.0 < 5'), ['2', '3', '4'])
+  t.deepEqual(majors('>= 9 < 11'), ['9', '10'])
 
   t.throws(majors.bind(null, '> 2 > 10'), /unbounded and no maximum/)
   t.throws(majors.bind(null, '> 2'), /unbounded and no maximum/)

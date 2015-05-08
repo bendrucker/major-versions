@@ -13,7 +13,7 @@ const operators = {
 }
 
 export default function majors (range, maximum) {
-  return new Range(range).set
+  const versions = new Range(range).set
     .map((comparators) => {
       const semvers = sortOn(comparators.map((comparator) => {
         return {
@@ -34,7 +34,8 @@ export default function majors (range, maximum) {
     .reduce((allMajors, majors) => {
       return uniqueConcat(allMajors, majors)
     })
-    .sort()
+
+  return sortOn(versions)
     .map(n => n.toString())
 }
 
