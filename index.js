@@ -17,19 +17,31 @@ module.exports = function majorVersions (range, maximum) {
   range = dedupeRange(range)
   var versions = new semver.Range(range)
     .set
+    // filter out comparators that don't resolve
     .filter(resolves.comparators)
+    // ensure there's a lower bound to the range
+    // bound w/ 0 if needed
     .map(applyLowerBound)
+    // enforce an upper bound
     .map(ensureUpperBound(range, maximum))
+    // get a list of major versions
     .map(getVersions)
+    // merge to a single array
     .reduce(function (allVersions, setVerions) {
       allVersions.push.apply(allVersions, setVerions)
       return allVersions
     }, [])
+    // remove extra zeros
     .map(stripZeros)
 
   return unique(versions)
 }
 
+
+/*
+Check if there's a lower bound on the comparator list. If there isn't,
+use >=0.0.0.
+*/
 function applyLowerBound (comparators) {
   if (comparators[0].operator.charAt(0) === '<') {
     comparators.unshift(new semver.Comparator('>=0.0.0'))
@@ -37,6 +49,10 @@ function applyLowerBound (comparators) {
   return comparators
 }
 
+/*
+Range must have an upper bound. Check if the last comparator is >/>=.
+If so, a maximum must be provided.
+*/
 function ensureUpperBound (range, maximum) {
   return function applyUpperBound (comparators) {
     var hasUpperBound = isBounded.comparators(comparators)
@@ -61,10 +77,14 @@ function ensureUpperBound (range, maximum) {
 function getVersions (comparators) {
   return comparators.reduce(function (versions, comparator, index) {
     var version = comparator.semver.version
+    // add the first version
     if (!index) versions.push(version)
     var next = comparators[index + 1]
+    // if we're on the last item, we're already done
     if (!next) return versions
+    // bump the version by one major version
     var bumped = semver.inc(version, 'major')
+    // keep bumping until the next comparator is no longer satisfied
     while (next.test(bumped)) {
       versions.push(bumped)
       bumped = semver.inc(bumped, 'major')
@@ -76,6 +96,7 @@ function getVersions (comparators) {
 function stripZeros (version) {
   version = new semver.SemVer(version)
   var formatted = version.major.toString()
+  // strip 0s (e.g. 2.0.0) but keep other digits (e.g. 2.3.4)
   if (version.minor) formatted += '.' + version.minor
   if (version.patch) formatted += '.' + version.patch
   return formatted
