@@ -6,6 +6,7 @@ var dedupeRange = require('semver-conflicts')
 var resolves = require('semver-resolves')
 var unique = require('array-uniq')
 var last = require('array-last')
+var merge = require('accumulate-values')
 var printf = require('pff')
 
 module.exports = function majorVersions (range, maximum) {
@@ -27,16 +28,12 @@ module.exports = function majorVersions (range, maximum) {
     // get a list of major versions
     .map(getVersions)
     // merge to a single array
-    .reduce(function (allVersions, setVerions) {
-      allVersions.push.apply(allVersions, setVerions)
-      return allVersions
-    }, [])
+    .reduce(merge())
     // remove extra zeros
     .map(stripZeros)
 
   return unique(versions)
 }
-
 
 /*
 Check if there's a lower bound on the comparator list. If there isn't,

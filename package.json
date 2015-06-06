@@ -4,6 +4,7 @@
   "description": "Get all the major versions within a semver range",
   "main": "index.js",
   "dependencies": {
+    "accumulate-values": "~1.0.0",
     "array-last": "~1.0.2",
     "array-uniq": "~1.0.2",
     "pff": "~1.0.0",
