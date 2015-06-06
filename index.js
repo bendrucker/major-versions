@@ -28,7 +28,7 @@ module.exports = function majorVersions (range, maximum) {
     // get a list of major versions
     .map(getVersions)
     // merge to a single array
-    .reduce(merge())
+    .reduce(merge(), [])
     // remove extra zeros
     .map(stripZeros)
 
