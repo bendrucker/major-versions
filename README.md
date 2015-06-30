@@ -15,6 +15,7 @@ var majors = require('major-versions')
 majors('>=2 <5') // => ['2', '3', '4', '5']
 majors('>=2 <5 || 10') // => ['2', '3', '4', '5', '10']
 majors('<2 >5') // => []
+```
 
 ## API
 
