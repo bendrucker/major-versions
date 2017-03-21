@@ -5,17 +5,17 @@
   "main": "index.js",
   "dependencies": {
     "accumulate-values": "~1.0.0",
-    "array-last": "~1.0.2",
+    "array-last": "~1.1.1",
     "array-uniq": "~1.0.2",
     "pff": "~1.0.0",
-    "semver": "~4.3.3",
+    "semver": "~5.3.0",
     "semver-bounded": "~2.0.0",
     "semver-conflicts": "~1.0.0",
     "semver-resolves": "~1.0.0"
   },
   "devDependencies": {
-    "standard": "^4.0.1",
-    "tape": "~4.0.0"
+    "standard": "^9.0.2",
+    "tape": "~4.6.3"
   },
   "scripts": {
     "test": "standard && tape test.js"
