@@ -29,4 +29,3 @@ test(function (t) {
 
   t.end()
 })
-
