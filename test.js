@@ -26,6 +26,17 @@ test('unbounded ranges', function (t) {
   t.end()
 })
 
+test('0.x ranges', function (t) {
+  t.deepEqual(majors('>= 0.1 <= 0.2'), ['0.2'])
+  t.deepEqual(majors('< 0.4'), ['0.3'])
+
+  t.throws(majors.bind(null, '> 0.1'), /unbounded and no maximum/)
+
+  t.deepEqual(majors('> 0.1', '0.5.0'), ['0.5.0'])
+
+  t.end()
+})
+
 test('or', function (t) {
   t.deepEqual(majors('2 || > 5 < 8'), ['2', '6', '7'])
   t.end()
