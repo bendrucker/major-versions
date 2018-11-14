@@ -1,6 +1,6 @@
 # major-versions [![Build Status](https://travis-ci.org/bendrucker/major-versions.svg?branch=master)](https://travis-ci.org/bendrucker/major-versions) [![Greenkeeper badge](https://badges.greenkeeper.io/bendrucker/major-versions.svg)](https://greenkeeper.io/)
 
-> Get all the major versions within a semver range
+> Get all the major versions within a [semver](https://semver.org/) range
 
 ## Installing
 
@@ -37,3 +37,7 @@ A maximum to apply. An exception will be thrown for an unbounded range (e.g. `'>
 ```js
 majors('>=2', '4.1.2', ['2', '3', '4'])
 ```
+
+## Caveats
+
+If you pass a range in `0.y.z`, the library will throw an exception unless you define a `maximum` or your range resolves to an exact version. 

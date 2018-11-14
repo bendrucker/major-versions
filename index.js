@@ -26,7 +26,7 @@ module.exports = function majorVersions (range, maximum) {
     // enforce an upper bound
     .map(ensureUpperBound(range, maximum))
     // get a list of major versions
-    .map(getVersions)
+    .map(comparators => getVersions(comparators, maximum))
     // merge to a single array
     .reduce(merge(), [])
     // remove extra zeros
@@ -71,8 +71,16 @@ function ensureUpperBound (range, maximum) {
   }
 }
 
-function getVersions (comparators) {
+function getVersions (comparators, maximum) {
   return comparators.reduce(function (versions, comparator, index) {
+    if (comparator.operator && !comparator.semver.major && !isZeroBound(comparator)) {
+      if (maximum) return versions.concat(maximum)
+      throw new Error(printf(
+        'Invalid range, 0.y.z versions are not stable',
+        comparator.value
+      ))
+    }
+
     var version = comparator.semver.version
     // add the first version
     if (!index) versions.push(version)
@@ -93,8 +101,19 @@ function getVersions (comparators) {
 function stripZeros (version) {
   version = new semver.SemVer(version)
   var formatted = version.major.toString()
+
+  if (!version.major) {
+    return version.minor || version.patch
+      ? version.toString()
+      : '0'
+  }
+
   // strip 0s (e.g. 2.0.0) but keep other digits (e.g. 2.3.4)
   if (version.minor) formatted += '.' + version.minor
   if (version.patch) formatted += '.' + version.patch
   return formatted
+}
+
+function isZeroBound (comparator) {
+  return comparator.value === '>=0.0.0'
 }
