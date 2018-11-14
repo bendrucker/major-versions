@@ -1,4 +1,4 @@
-# major-versions [![Build Status](https://travis-ci.org/bendrucker/major-versions.svg?branch=master)](https://travis-ci.org/bendrucker/major-versions)
+# major-versions [![Build Status](https://travis-ci.org/bendrucker/major-versions.svg?branch=master)](https://travis-ci.org/bendrucker/major-versions) [![Greenkeeper badge](https://badges.greenkeeper.io/bendrucker/major-versions.svg)](https://greenkeeper.io/)
 
 > Get all the major versions within a semver range
 
